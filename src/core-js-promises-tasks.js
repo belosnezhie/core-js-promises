@@ -62,13 +62,11 @@ async function getPromiseResult(source) {
  * [Promise.reject(1), Promise.reject(2), Promise.reject(3)]    => Promise rejected
  */
 function getFirstResolvedPromiseResult(promises) {
-  return new Promise((resolve) => {
-    Promise.race(promises)
-      .then(resolve)
-      .catch(() => {
-        'Promise rejected';
-      });
-  });
+  return Promise.race(promises)
+    .then((result) => result)
+    .catch(() => {
+      'Promise rejected';
+    });
 }
 
 /**
@@ -94,8 +92,8 @@ function getFirstPromiseResult(promises) {
   return new Promise((resolve) => {
     Promise.any(promises)
       .then(resolve)
-      .catch(() => {
-        'Promise rejected';
+      .catch((error) => {
+        return Promise.reject(error);
       });
   });
 }
@@ -163,6 +161,15 @@ function getAllResult(promises) {
  * [promise1, promise4, promise3, promise2] => Promise.resolved('10403020')
  */
 function queuPromises(/* promises */) {
+  // let resultStr = '';
+  // promises.map((promise) => {
+  //   promise.then((result) => {
+  //     resultStr += result;
+  //     return resultStr;
+  //   });
+  //   return promise;
+  // });
+  // return Promise.resolve(resultStr);
   throw new Error('Not implemented');
 }
 
