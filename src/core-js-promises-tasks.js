@@ -64,8 +64,8 @@ async function getPromiseResult(source) {
 function getFirstResolvedPromiseResult(promises) {
   return Promise.race(promises)
     .then((result) => result)
-    .catch(() => {
-      'Promise rejected';
+    .catch((error) => {
+      return Promise.reject(error);
     });
 }
 
