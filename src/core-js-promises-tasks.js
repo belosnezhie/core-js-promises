@@ -160,17 +160,12 @@ function getAllResult(promises) {
  * [promise1, promise4, promise3] => Promise.resolved('104030')
  * [promise1, promise4, promise3, promise2] => Promise.resolved('10403020')
  */
-function queuPromises(/* promises */) {
-  // let resultStr = '';
-  // promises.map((promise) => {
-  //   promise.then((result) => {
-  //     resultStr += result;
-  //     return resultStr;
-  //   });
-  //   return promise;
-  // });
-  // return Promise.resolve(resultStr);
-  throw new Error('Not implemented');
+async function queuPromises(promises) {
+  return promises.reduce(async (accum, current) => {
+    const firstValue = await accum;
+    const secondValue = await current;
+    return firstValue + secondValue;
+  }, Promise.resolve(''));
 }
 
 module.exports = {
